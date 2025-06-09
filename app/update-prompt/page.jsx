@@ -1,7 +1,7 @@
 "use client";
 
 import Form from "@components/Form";
-import { useSession } from "@node_modules/next-auth/react";
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "@node_modules/next/navigation";
 import { useEffect, useState } from "react";
 const EditPrompt = () => {
@@ -48,13 +48,15 @@ const EditPrompt = () => {
   console.log(post);
 
   return (
-    <Form
-      type="Edit"
-      submitting={submitting}
-      post={post}
-      setPost={setPost}
-      handleSubmit={updatePrompt}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Form
+        type="Edit"
+        submitting={submitting}
+        post={post}
+        setPost={setPost}
+        handleSubmit={updatePrompt}
+      />
+    </Suspense>
   );
 };
 
