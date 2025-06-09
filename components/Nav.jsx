@@ -11,10 +11,6 @@ const Nav = () => {
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  const handleSignout = (word) => {
-    console.log(word);
-    router.push("/");
-  };
   useEffect(() => {
     const setUpProviders = async () => {
       const response = await getProviders();
@@ -44,9 +40,11 @@ const Nav = () => {
             <Link href="/create-prompt" className="black_btn">
               Create Post
             </Link>
-            <button type="button" onClick={signOut} className="outline_btn">
-              Sign Out
-            </button>
+            <Link href="/">
+              <button type="button" onClick={signOut} className="outline_btn">
+                Sign Out
+              </button>
+            </Link>
             <Link href="/profile">
               <Image
                 src={session?.user.image}
