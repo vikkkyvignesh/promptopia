@@ -1,8 +1,7 @@
 "use client";
 
 import Form from "@components/Form";
-import { useSession } from "@node_modules/next-auth/react";
-import { useRouter, useSearchParams } from "@node_modules/next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 const EditPrompt = () => {
   const searchParams = useSearchParams();
