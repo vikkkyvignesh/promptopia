@@ -1,4 +1,4 @@
-import NextAuth from "@node_modules/next-auth";
+import NextAuth from "next-auth";
 import { connectToDB } from "@utils/database";
 import GoogleProvider from "next-auth/providers/google";
 import User from "@models/user";
