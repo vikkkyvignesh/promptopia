@@ -1,63 +1,14 @@
-"use client";
-
-import Form from "@components/Form";
 import { Suspense } from "react";
-import { useRouter, useSearchParams } from "@node_modules/next/navigation";
-import { useEffect, useState } from "react";
-const EditPrompt = () => {
-  const searchParams = useSearchParams();
-  const promptId = searchParams.get("id");
-  const router = useRouter();
+import EditPrompt from "./EditPrompt";
+// import your client component
 
-  const [submitting, setSubmitting] = useState(false);
-  const [post, setPost] = useState({ prompt: "", tag: "" });
+// Optional: tell Next.js not to statically prerender this page
+export const dynamic = "force-dynamic";
 
-  useEffect(() => {
-    const getPromptDetails = async () => {
-      const resp = await fetch(`/api/prompt/${promptId}`);
-      const data = await resp.json();
-      setPost({ prompt: data.prompt, tag: data.tag });
-      console.log(post);
-    };
-    if (promptId) getPromptDetails();
-  }, [promptId]);
-
-  const updatePrompt = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-
-    if (!promptId) return alert("Prompt ID not found");
-    try {
-      const res = await fetch(`/api/prompt/${promptId}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          prompt: post.prompt,
-          tag: post.tag,
-        }),
-      });
-
-      if (res.ok) {
-        router.push("/");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-  console.log(post);
-
+export default function Page() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Form
-        type="Edit"
-        submitting={submitting}
-        post={post}
-        setPost={setPost}
-        handleSubmit={updatePrompt}
-      />
+    <Suspense fallback={<div>Loading edit form…</div>}>
+      <EditPrompt />
     </Suspense>
   );
-};
-
-export default EditPrompt;
+}
